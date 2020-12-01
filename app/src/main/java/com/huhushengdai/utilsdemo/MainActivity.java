@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.huhushengdai.log.LogTool;
+import com.huhushengdai.utilsdemo.log.LogWriteFileHandler;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void print(View v){
+        LogTool.setLogHandler(new LogWriteFileHandler());
         LogTest.print("msg d");
     }
 }
