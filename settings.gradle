@@ -1,4 +1,3 @@
-include ':crash'
-include ':log'
+include ':tool'
 include ':app'
 rootProject.name = "UtilsDemo"
