@@ -1,5 +1,3 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.huhushengdai.log">
+<manifest package="com.huhushengdai.log">
 
-    /
 </manifest>
