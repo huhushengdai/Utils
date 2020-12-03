@@ -32,6 +32,10 @@ public class LogWriteFileHandler implements LogHandler {
 
     private static final long CLOSE_DELAY_TIME = 3 * 1000;
     /**
+     * 文件夹名称
+     */
+    private static final String DIR_NAME = "log";
+    /**
      * 文件保存路径
      */
     private String mSavePath;
@@ -150,7 +154,7 @@ public class LogWriteFileHandler implements LogHandler {
 
 
     private File getFile() {
-        File dirs = new File(mSavePath);
+        File dirs = new File(mSavePath, DIR_NAME);
         if (!dirs.exists()) {
             if (!dirs.mkdirs()) {
                 return null;
@@ -185,7 +189,7 @@ public class LogWriteFileHandler implements LogHandler {
         if (lastFile == null || lastFile.length() > mSingleFileMaxSize) {
             //没有存储日志的文件，或者该文件的大小已经超过
             //创建一个新的文件
-            lastFile = new File(mSavePath, System.currentTimeMillis() + "");
+            lastFile = new File(dirs, +System.currentTimeMillis() + "");
             try {
                 if (!lastFile.createNewFile()) {
                     return null;
@@ -203,7 +207,7 @@ public class LogWriteFileHandler implements LogHandler {
      * 如果超过了设定，清楚掉最早记录的文件
      */
     private void clearSuperfluous() {
-        File file = new File(mSavePath);
+        File file = new File(mSavePath, DIR_NAME);
         File[] files = file.listFiles();
         if (files == null) {
             return;
@@ -320,6 +324,9 @@ public class LogWriteFileHandler implements LogHandler {
             }
             if (dirMaxSize <= 0) {
                 throw new RuntimeException("dirMaxSize <= 0");
+            }
+            if (singleFileMaxSize > dirMaxSize) {
+                throw new RuntimeException("singleFileMaxSize > dirMaxSize");
             }
             return new LogWriteFileHandler(savePath, singleFileMaxSize, dirMaxSize);
         }
