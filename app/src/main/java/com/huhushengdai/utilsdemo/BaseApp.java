@@ -5,7 +5,8 @@ import android.content.Intent;
 import android.os.Environment;
 import android.util.Log;
 
-import com.huhushengdai.crash.CrashLogHandler;
+import com.huhushengdai.tool.crash.CrashLogHandler;
+
 
 /**
  * Date： 2020/12/3

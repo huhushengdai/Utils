@@ -1,6 +1,7 @@
 package com.huhushengdai.utilsdemo;
 
-import com.huhushengdai.log.LogTool;
+
+import com.huhushengdai.tool.log.LogTool;
 
 /**
  * Date： 2020/12/1
