@@ -13,9 +13,10 @@ public interface LogHandler {
      *
      * @param threadName 调用时线程名称
      * @param fileName   文件名
+     * @param methodName 方法名
      * @param lineNum    行号
      * @param msg        打印信息
      * @param level      日志等级
      */
-    void onLog(String threadName, String fileName, int lineNum, String msg, int level);
+    void onLog(String threadName, String fileName, String methodName, int lineNum, String msg, int level);
 }

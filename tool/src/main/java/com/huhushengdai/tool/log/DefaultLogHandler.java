@@ -2,7 +2,7 @@ package com.huhushengdai.tool.log;
 
 import android.util.Log;
 
-import java.util.Locale;
+import com.huhushengdai.tool.log.utils.MsgUtils;
 
 /**
  * Date： 2020/12/1
@@ -17,21 +17,21 @@ public class DefaultLogHandler implements LogHandler {
 
 
     @Override
-    public void onLog(String threadName, String fileName, int lineNum, String msg, int level) {
-        String log = String.format(Locale.CHINA, "[%s] (%s:%d) %s", threadName, fileName, lineNum, msg);
+    public void onLog(String threadName, String fileName, String methodName, int lineNum, String msg, int level) {
+        String log = MsgUtils.getMsg(threadName, fileName, methodName, lineNum, msg);
         switch (level) {
             default:
             case LogTool.DEBUG:
-                Log.d(TAG,log);
+                Log.d(TAG, log);
                 break;
             case LogTool.INFO:
-                Log.i(TAG,log);
+                Log.i(TAG, log);
                 break;
             case LogTool.WARN:
-                Log.w(TAG,log);
+                Log.w(TAG, log);
                 break;
             case LogTool.ERROR:
-                Log.e(TAG,log);
+                Log.e(TAG, log);
                 break;
         }
     }

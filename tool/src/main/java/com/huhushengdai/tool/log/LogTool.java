@@ -80,6 +80,6 @@ public class LogTool {
         Thread currentThread = Thread.currentThread();
         //默认打印第5层栈信息
         StackTraceElement stackTrace = currentThread.getStackTrace()[4];
-        logHandler.onLog(currentThread.getName(), stackTrace.getFileName(), stackTrace.getLineNumber(), msg, level);
+        logHandler.onLog(currentThread.getName(), stackTrace.getFileName(), stackTrace.getMethodName(), stackTrace.getLineNumber(), msg, level);
     }
 }

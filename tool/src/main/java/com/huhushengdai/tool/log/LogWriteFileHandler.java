@@ -6,6 +6,8 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.huhushengdai.tool.log.utils.MsgUtils;
+
 import androidx.annotation.NonNull;
 
 import java.io.File;
@@ -82,7 +84,7 @@ public class LogWriteFileHandler implements LogHandler {
     }
 
     @Override
-    public void onLog(final String threadName, final String fileName, final int lineNum, final String msg, final int level) {
+    public void onLog(final String threadName, final String fileName,final String methodName, final int lineNum, final String msg, final int level) {
         if (mHandler == null) {
             return;
         }
@@ -108,7 +110,7 @@ public class LogWriteFileHandler implements LogHandler {
         StringBuilder sb = new StringBuilder();
         sb.append(sdf.format(new Date(time)))
                 .append(" ").append(infoLevel).append(" ")
-                .append(String.format(Locale.CHINA, "[%s] (%s:%d) %s", threadName, fileName, lineNum, msg))
+                .append(MsgUtils.getMsg(threadName, fileName, methodName, lineNum, msg))
                 .append("\n");
         Message message = mHandler.obtainMessage(TaskHandler.HANDLER_WRITE, sb.toString());
         mHandler.sendMessage(message);
