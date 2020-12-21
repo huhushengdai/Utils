@@ -4,10 +4,74 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
     android:background="@mipmap/bg"
-    android:onClick="changeBg"
-    >
+    tools:context=".MainActivity">
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/textList"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/img"
+        tools:text="Receiver收到PUBLISH包以后，向Sender发送一个PUBACK数据包，PUBACK数据包没有消息体（Payload），在可变头中有一个包标识（Packet Identifier），和它收到的PUBLISH包中的Packet Identifier一致。" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/textList2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/textList"
+        app:layout_constraintStart_toStartOf="@id/textList"
+        app:layout_constraintTop_toBottomOf="@id/textList" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/textList3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="@id/textList"
+        app:layout_constraintStart_toStartOf="@id/textList"
+        app:layout_constraintTop_toBottomOf="@id/textList2" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/textList4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/textList"
+        app:layout_constraintStart_toStartOf="@id/textList"
+        app:layout_constraintTop_toBottomOf="@id/textList3" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/textList5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        app:layout_constraintEnd_toEndOf="@id/textList"
+        app:layout_constraintStart_toStartOf="@id/textList"
+        app:layout_constraintTop_toBottomOf="@id/textList4" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/textList6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/textList"
+        app:layout_constraintStart_toStartOf="@id/textList"
+        app:layout_constraintTop_toBottomOf="@id/textList5" />
+
+    <View
+        android:id="@+id/guideline"
+        android:layout_width="1dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.41"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/img"
@@ -15,25 +79,24 @@
         android:layout_height="120dp"
         android:src="@mipmap/ic_launcher"
         android:text="Hello World!"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.83"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:visibility="invisible"
-        app:layout_constraintVertical_bias="0.17"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintVertical_bias="0.17" />
 
     <TextView
-        android:id="@+id/text"
-        android:visibility="gone"
-        android:layout_width="0dp"
+        android:id="@+id/author"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@id/img"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0"
-        android:layout_marginStart="40dp"
-        tools:text="Receiver收到PUBLISH包以后，向Sender发送一个PUBACK数据包，PUBACK数据包没有消息体（Payload），在可变头中有一个包标识（Packet Identifier），和它收到的PUBLISH包中的Packet Identifier一致。"
-        android:layout_marginTop="40dp"/>
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:alpha="0"
+        android:text="月下"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@id/textList"
+        app:layout_constraintTop_toBottomOf="@id/textList6" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

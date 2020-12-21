@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@mipmap/bg_dialog"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/askTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:text="亲，你看这是否还满意？"
+        android:textColor="#333"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/askLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="28dp"
+        android:background="#9999"
+        app:layout_constraintTop_toBottomOf="@id/askTitle" />
+
+    <TextView
+        android:id="@+id/askLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="emmm"
+        android:paddingTop="12dp"
+        android:textSize="18sp"
+        android:paddingBottom="12dp"
+        android:textColor="#333"
+        app:layout_constraintEnd_toStartOf="@id/askLine2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/askLine"
+        />
+
+    <View
+        android:id="@+id/askLine2"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/askLine"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="#9999"/>
+
+    <TextView
+        android:id="@+id/askRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="当然"
+        android:textSize="18sp"
+        android:paddingTop="12dp"
+        android:textColor="#333"
+        android:paddingBottom="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/askLine2"
+        app:layout_constraintTop_toBottomOf="@id/askLine"
+
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
