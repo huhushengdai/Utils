@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean animFinish;
 
+    private View mContainer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,17 +60,18 @@ public class MainActivity extends AppCompatActivity {
         Display display = getWindowManager().getDefaultDisplay();
         mScreenWidth = display.getWidth();
         mScreenHeight = display.getHeight();
-//        img.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (flag) {
-//                    o();
-//                } else {
-//                    enlarge(1000);
-//                }
-//                flag = !flag;
-//            }
-//        });
+        mContainer = findViewById(R.id.container);
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (flag) {
+                    o2();
+                } else {
+                    enlarge(1000);
+                }
+                flag = !flag;
+            }
+        });
         AssetManager mgr = getAssets();
         Typeface tf = Typeface.createFromAsset(mgr, "fz.ttf");
         mTextAdapter = new TextAdapter(null, this, tf);
@@ -124,17 +127,22 @@ public class MainActivity extends AppCompatActivity {
         mTextAdapter6.setOnAniEndListener(new TextAdapter.OnAniEndListener() {
             @Override
             public void onAnimationEnd() {
-//                showText6();
-                ValueAnimator alphaAnimator = ObjectAnimator.ofFloat(author, "alpha", 0, 1);
-                alphaAnimator.setDuration(1000);
-                alphaAnimator.addListener(new AnimatorListenerAdapter() {
+                handler.postDelayed(new Runnable() {
                     @Override
-                    public void onAnimationEnd(Animator animation) {
-                        super.onAnimationEnd(animation);
-                        animFinish = true;
+                    public void run() {
+                        ValueAnimator alphaAnimator = ObjectAnimator.ofFloat(author, "alpha", 0, 1);
+                        alphaAnimator.setDuration(2000);
+                        alphaAnimator.addListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                super.onAnimationEnd(animation);
+                                animFinish = true;
+                            }
+                        });
+                        alphaAnimator.start();
                     }
-                });
-                alphaAnimator.start();
+                }, 2000);
+
             }
         });
         initRecycler((RecyclerView) findViewById(R.id.textList6), mTextAdapter6);
@@ -151,19 +159,41 @@ public class MainActivity extends AppCompatActivity {
             askDialog.setLeftOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    askDialog.dismiss();
-                    finish();
+                    askDialog.setHintText("so sad，see you");
+                    toFinish();
                 }
             });
             askDialog.setRightOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    askDialog.dismiss();
-                    finish();
+                    askDialog.setHintText("就知道你会喜欢，See you");
+                    toFinish();
                 }
             });
         }
         askDialog.show();
+    }
+
+    private void toFinish() {
+
+
+        ValueAnimator alphaAnimator2 = ObjectAnimator.ofFloat(askDialog.getContainerView(), "alpha", 1, 0);
+        ValueAnimator alphaAnimator = ObjectAnimator.ofFloat(mContainer, "alpha", 1, 0);
+        AnimatorSet animSet = new AnimatorSet();
+        animSet.play(alphaAnimator).with(alphaAnimator2);
+        animSet.setDuration(5000);
+        animSet.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                if (askDialog != null && askDialog.isShowing()) {
+                    askDialog.dismiss();
+                }
+                finish();
+                overridePendingTransition(R.anim.entry, R.anim.exit);
+            }
+        });
+        animSet.start();
     }
 
     @Override
@@ -195,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     enlarge(0);
-                    flag = true;
+                    flag = false;
                 }
             }, 50);
             showText1();
@@ -209,16 +239,16 @@ public class MainActivity extends AppCompatActivity {
                 mTextAdapter.setData(getTextBean("仿佛兮", 1200));
                 mTextAdapter.notifyDataSetChanged();
             }
-        }, 2000);
+        }, 1000);
     }
 
     private void showText2() {
-        mTextAdapter2.setData(getTextBean("若轻云之蔽月", 800));
+        mTextAdapter2.setData(getTextBean("若轻云之蔽月", 700));
         mTextAdapter2.notifyDataSetChanged();
     }
 
     private void showText3() {
-        mTextAdapter3.setData(getTextBean("飘摇兮", 1200));
+        mTextAdapter3.setData(getTextBean("飘摇兮", 1000));
         mTextAdapter3.notifyDataSetChanged();
     }
 
@@ -254,7 +284,7 @@ public class MainActivity extends AppCompatActivity {
     private void o() {
 
         ValueAnimator alphaAnimator = ObjectAnimator.ofFloat(img, "alpha", 0, 1);
-        alphaAnimator.setDuration(1000);
+        alphaAnimator.setDuration(2000);
         ValueAnimator scaleAnimator = ObjectAnimator.ofFloat(img, "scaleX", 1);
         ValueAnimator scaleAnimatorY = ObjectAnimator.ofFloat(img, "scaleY", 1);
         ValueAnimator tranceAnimator = ObjectAnimator.ofFloat(img, "translationX", 0);
@@ -262,7 +292,7 @@ public class MainActivity extends AppCompatActivity {
         AnimatorSet animSet = new AnimatorSet();
         animSet.play(scaleAnimator)
                 .after(alphaAnimator).with(tranceAnimator).with(tranceAnimatorY).with(scaleAnimatorY);
-        animSet.setDuration(2000);
+        animSet.setDuration(4000);
         animSet.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
@@ -270,6 +300,19 @@ public class MainActivity extends AppCompatActivity {
                 showText5();
             }
         });
+        animSet.start();
+    }
+
+    private void o2() {
+
+
+        ValueAnimator scaleAnimator = ObjectAnimator.ofFloat(img, "scaleX", 1);
+        ValueAnimator scaleAnimatorY = ObjectAnimator.ofFloat(img, "scaleY", 1);
+        ValueAnimator tranceAnimator = ObjectAnimator.ofFloat(img, "translationX", 0);
+        ValueAnimator tranceAnimatorY = ObjectAnimator.ofFloat(img, "translationY", 0);
+        AnimatorSet animSet = new AnimatorSet();
+        animSet.play(scaleAnimator).with(tranceAnimator).with(tranceAnimatorY).with(scaleAnimatorY);
+        animSet.setDuration(1000);
         animSet.start();
     }
 

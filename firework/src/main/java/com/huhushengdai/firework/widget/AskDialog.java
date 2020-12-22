@@ -27,6 +27,8 @@ public class AskDialog extends Dialog {
     private TextView mLeftView;
     private TextView mRightView;
 
+    private View mContainerView;
+
     public AskDialog(@NonNull Context context) {
         this(context, R.style.custom_dialog);
     }
@@ -37,6 +39,7 @@ public class AskDialog extends Dialog {
         Typeface tf2 = Typeface.createFromAsset(mgr, "hk.ttf");
         setContentView(R.layout.dialog_ask);
         mHintText = findViewById(R.id.askTitle);
+        mContainerView = findViewById(R.id.askContainer);
         mHintText.setTypeface(tf2);
         mLeftView = findViewById(R.id.askLeft);
         mLeftView.setTypeface(tf2);
@@ -45,6 +48,9 @@ public class AskDialog extends Dialog {
         setWidth();
     }
 
+    public View getContainerView(){
+        return mContainerView;
+    }
 
     private void setWidth() {
         Window window = getWindow();
