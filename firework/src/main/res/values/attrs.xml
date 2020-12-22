@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="Overlap">
+        <!--需要的背景形状-->
+        <attr name="dstBg" format="reference" />
+        <attr name="maxWidth" format="integer" />
+        <attr name="minWidth" format="integer" />
+        <attr name="expectedWidth" format="integer" />
+    </declare-styleable>
+</resources>
