@@ -136,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onAnimationEnd(Animator animation) {
                                 super.onAnimationEnd(animation);
+                                Toast.makeText(MainActivity.this, "over,按返回键可以退出", Toast.LENGTH_SHORT).show();
                                 animFinish = true;
                             }
                         });
@@ -159,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
             askDialog.setLeftOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     askDialog.setHintText("so sad，see you");
                     toFinish();
                 }
@@ -175,7 +177,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void toFinish() {
-
 
         ValueAnimator alphaAnimator2 = ObjectAnimator.ofFloat(askDialog.getContainerView(), "alpha", 1, 0);
         ValueAnimator alphaAnimator = ObjectAnimator.ofFloat(mContainer, "alpha", 1, 0);
@@ -263,7 +264,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showText6() {
-        mTextAdapter6.setData(getTextBean("                      喜欢么）", 50));
+        mTextAdapter6.setData(getTextBean("                      喜欢么）", 30));
         mTextAdapter6.notifyDataSetChanged();
     }
 
