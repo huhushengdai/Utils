@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.huhushengdai.firework.adapter.TextAdapter;
+import com.huhushengdai.firework.email.EmailUtils;
 import com.huhushengdai.firework.widget.AskDialog;
 
 import java.util.ArrayList;
@@ -160,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
             askDialog.setLeftOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    EmailUtils.send("lu so sad");
                     askDialog.setHintText("so sad，see you");
                     toFinish();
                 }
@@ -168,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
             askDialog.setRightOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    EmailUtils.send("lu so good");
                     askDialog.setHintText("就知道你会喜欢，See you");
                     toFinish();
                 }
