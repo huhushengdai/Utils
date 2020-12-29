@@ -1,16 +1,14 @@
-package com.huhushengdai.firework.adapter;
+package com.huhushengdai.tool.view.recycler;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-
-import com.huhushengdai.firework.R;
+import com.huhushengdai.tool.R;
 
 import java.util.List;
 
@@ -20,7 +18,7 @@ import java.util.List;
  *
  * @version 1.0
  */
-public abstract class BaseRecycleAdapter<T> extends RecyclerView.Adapter<BaseRecycleAdapter.BaseViewHolder> {
+public abstract class AbsRecycleAdapter<T,VH extends BaseViewHolder> extends RecyclerView.Adapter<VH> {
 
     private List<T> mData;
     private Context mContext;
@@ -34,7 +32,7 @@ public abstract class BaseRecycleAdapter<T> extends RecyclerView.Adapter<BaseRec
         }
     };
 
-    public BaseRecycleAdapter(List<T> data, Context context) {
+    public AbsRecycleAdapter(Context context, List<T> data) {
         this.mData = data;
         this.mContext = context;
     }
@@ -49,22 +47,20 @@ public abstract class BaseRecycleAdapter<T> extends RecyclerView.Adapter<BaseRec
 
     @NonNull
     @Override
-    public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        BaseViewHolder holder = createHolder(parent, viewType);
+    public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(getContext()).inflate(getItemLayoutId(viewType), parent, false);
+        VH holder = createHolder(view);
         afterCreateViewHolder(holder);
         return holder;
     }
 
-    public BaseViewHolder createHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(getContext()).inflate(getItemLayoutId(viewType), parent, false);
-        return new BaseViewHolder(view);
-    }
+    public abstract VH createHolder(View itemView);
 
     protected Context getContext() {
         return mContext;
     }
 
-    public void afterCreateViewHolder(BaseViewHolder holder) {
+    public void afterCreateViewHolder(VH holder) {
         holder.setOnChildClickListener(mSelfListener);
     }
 
@@ -89,29 +85,5 @@ public abstract class BaseRecycleAdapter<T> extends RecyclerView.Adapter<BaseRec
 
     public interface OnChildClickListener {
         void onChildClick(View parent, View child, int position);
-    }
-
-    public static class BaseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private OnChildClickListener mListener;
-
-        public BaseViewHolder(@NonNull View itemView) {
-            super(itemView);
-        }
-
-        private void setOnChildClickListener(OnChildClickListener listener) {
-            mListener = listener;
-        }
-
-        public void setClickChild(@IdRes int childViewId) {
-            View child = itemView.findViewById(childViewId);
-            if (child != null) {
-                child.setOnClickListener(this);
-            }
-        }
-
-        @Override
-        public void onClick(View v) {
-            mListener.onChildClick(itemView, v, (Integer) itemView.getTag(R.id.item_position));
-        }
     }
 }

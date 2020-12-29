@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 
 import com.huhushengdai.firework.R;
 import com.huhushengdai.firework.TextBean;
+import com.huhushengdai.tool.view.recycler.BaseRecycleAdapter;
+import com.huhushengdai.tool.view.recycler.BaseViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +34,7 @@ public class TextAdapter extends BaseRecycleAdapter<TextBean> {
     private Typeface tf;
 
     public TextAdapter(List<TextBean> data, Context context, Typeface tf) {
-        super(data, context);
+        super(context, data);
         //根据路径得到Typeface
         this.tf = tf;
     }
