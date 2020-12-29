@@ -53,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
 
     private View mContainer;
 
+    private boolean toFinish;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -161,6 +163,9 @@ public class MainActivity extends AppCompatActivity {
             askDialog.setLeftOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (toFinish) {
+                        return;
+                    }
                     EmailUtils.send("lu so sad");
                     askDialog.setHintText("so sad，see you");
                     toFinish();
@@ -169,6 +174,9 @@ public class MainActivity extends AppCompatActivity {
             askDialog.setRightOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (toFinish) {
+                        return;
+                    }
                     EmailUtils.send("lu so good");
                     askDialog.setHintText("就知道你会喜欢，See you");
                     toFinish();
@@ -179,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void toFinish() {
-
+        toFinish = true;
         ValueAnimator alphaAnimator2 = ObjectAnimator.ofFloat(askDialog.getContainerView(), "alpha", 1, 0);
         ValueAnimator alphaAnimator = ObjectAnimator.ofFloat(mContainer, "alpha", 1, 0);
         AnimatorSet animSet = new AnimatorSet();

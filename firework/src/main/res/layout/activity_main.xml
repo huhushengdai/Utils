@@ -79,7 +79,7 @@
         android:layout_width="140dp"
         android:layout_height="120dp"
         android:visibility="invisible"
-        android:src="@drawable/lu3"
+        android:src="@mipmap/ic_launcher"
         app:dstBg="@drawable/bg_mask3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

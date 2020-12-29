@@ -82,7 +82,7 @@ public class FirstActivity extends AppCompatActivity {
 //        christmasMan.setAlpha(0);
         christmasMan.setVisibility(View.VISIBLE);
         ValueAnimator animator = ObjectAnimator.ofFloat(christmasMan,"alpha",0,1);
-        animator.setDuration(300);
+        animator.setDuration(3000);
         ValueAnimator animatorText = ObjectAnimator.ofFloat(textView,"alpha",0,1);
         animatorText.setDuration(2000);
         AnimatorSet animSet = new AnimatorSet();
