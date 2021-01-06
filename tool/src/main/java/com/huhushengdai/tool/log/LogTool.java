@@ -1,5 +1,8 @@
 package com.huhushengdai.tool.log;
 
+import android.os.Handler;
+import android.os.Looper;
+
 /**
  * Date： 2020/12/1
  * Description:
@@ -7,6 +10,28 @@ package com.huhushengdai.tool.log;
  * @version 1.0
  */
 public class LogTool {
+    /**
+     * 由于有大量读写操作，非常耗时
+     * 所以创建一个子线程handler，去做操作
+     */
+    private static Handler mHandler;
+
+    static {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Looper.prepare();
+                Looper looper = Looper.myLooper();
+                if (looper == null) {
+                    throw new RuntimeException("No Looper; Looper.prepare() wasn't called on this thread.");
+                }
+                mHandler = new Handler(looper);
+                Looper.loop();
+            }
+        });
+        thread.setName("LogThread" + thread.hashCode());
+        thread.start();
+    }
 
     //默认使用系统Log的等级制度
     /**
@@ -72,7 +97,10 @@ public class LogTool {
         print(msg, ERROR);
     }
 
-    private static void print(String msg, int level) {
+    private static void print(final String msg, final int level) {
+        if (mHandler == null) {
+            return;
+        }
         final LogHandler logHandler = LOG_HANDLER;
         if (logHandler == null) {
             return;
@@ -80,6 +108,15 @@ public class LogTool {
         Thread currentThread = Thread.currentThread();
         //默认打印第5层栈信息
         StackTraceElement stackTrace = currentThread.getStackTrace()[4];
-        logHandler.onLog(currentThread.getName(), stackTrace.getFileName(), stackTrace.getMethodName(), stackTrace.getLineNumber(), msg, level);
+        final String threadName = currentThread.getName();
+        final String fileName = stackTrace.getFileName();
+        final String methodName = stackTrace.getMethodName();
+        final int lime = stackTrace.getLineNumber();
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                logHandler.onLog(threadName, fileName, methodName, lime, msg, level);
+            }
+        });
     }
 }
