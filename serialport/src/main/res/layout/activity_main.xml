@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.huhushengdai.serialport.MainData" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:text="串口收发测试工具"
+            android:textColor="#333"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/serialPort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="串口号："
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/serialPortEdit"
+            app:layout_constraintStart_toStartOf="@id/title"
+            app:layout_constraintTop_toTopOf="@id/serialPortEdit" />
+
+        <EditText
+            android:id="@+id/serialPortEdit"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:text="@={data.serialPort}"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/serialPort"
+            app:layout_constraintTop_toBottomOf="@id/title" />
+
+        <TextView
+            android:id="@+id/baudRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="波特率："
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/baudRateEdit"
+            app:layout_constraintStart_toEndOf="@id/serialPortEdit"
+            app:layout_constraintTop_toTopOf="@id/baudRateEdit" />
+
+        <EditText
+            android:id="@+id/baudRateEdit"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:inputType="number"
+            android:textSize="14sp"
+            android:text="@={data.baudRate}"
+            app:layout_constraintStart_toEndOf="@id/baudRate"
+            app:layout_constraintTop_toBottomOf="@id/title" />
+
+        <Button
+            android:id="@+id/deleteApp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="卸载app"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/title"
+            app:layout_constraintEnd_toEndOf="@id/baudRateEdit" />
+
+        <Button
+            android:id="@+id/openSerialPort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="打开串口"
+            app:layout_constraintEnd_toEndOf="@id/baudRateEdit"
+            app:layout_constraintTop_toBottomOf="@id/baudRateEdit" />
+
+        <TextView
+            android:id="@+id/errorInfo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:padding="5dp"
+            android:background="@drawable/bg_error"
+            android:textSize="14sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@id/openSerialPort"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@id/title"
+            app:layout_constraintTop_toBottomOf="@id/openSerialPort"/>
+
+
+        <LinearLayout
+            android:id="@+id/dataContainer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintEnd_toEndOf="@id/openSerialPort"
+            app:layout_constraintStart_toStartOf="@id/title"
+            app:layout_constraintTop_toBottomOf="@id/openSerialPort">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="发送内容："
+                android:textColor="#333"
+                android:textSize="14sp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_send"
+                android:gravity="start"
+                android:hint="输入要发送的内容"
+                android:minLines="4"
+                android:padding="5dp"
+                android:textSize="14sp"
+                android:text="@={data.send}" />
+
+            <Button
+                android:id="@+id/send"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="10dp"
+                android:text="发送数据" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="接收内容："
+                android:textColor="#333"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/clearReceive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="清空接收内容"
+                android:textSize="14sp"
+                android:layout_gravity="end"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_receive"
+                android:minLines="3"
+                android:padding="5dp"
+                android:textSize="14sp"
+                android:text="@{data.receive}"
+                tools:text="123" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
