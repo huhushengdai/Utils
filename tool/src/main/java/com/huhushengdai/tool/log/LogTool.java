@@ -98,9 +98,6 @@ public class LogTool {
     }
 
     private static void print(final String msg, final int level) {
-        if (mHandler == null) {
-            return;
-        }
         final LogHandler logHandler = LOG_HANDLER;
         if (logHandler == null) {
             return;
@@ -112,11 +109,15 @@ public class LogTool {
         final String fileName = stackTrace.getFileName();
         final String methodName = stackTrace.getMethodName();
         final int lime = stackTrace.getLineNumber();
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                logHandler.onLog(threadName, fileName, methodName, lime, msg, level);
-            }
-        });
+        if (mHandler != null) {
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    logHandler.onLog(threadName, fileName, methodName, lime, msg, level);
+                }
+            });
+        } else {
+            logHandler.onLog(threadName, fileName, methodName, lime, msg, level);
+        }
     }
 }

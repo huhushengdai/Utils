@@ -1,6 +1,8 @@
 package com.huhushengdai.utilsdemo;
 
 import android.Manifest;
+import android.content.ComponentName;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,13 +35,15 @@ public class UploadActivity extends AppCompatActivity {
     String sk = "X22vza-l53jcZyi_fmaex88R065_Ip2_3j5Im0Se";
 
     public void upload(View v) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                int code = deleteFileFromQiniu("daixiaolu.apk");
-                Log.i("delete", "code = " + code);
-            }
-        }).start();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                int code = deleteFileFromQiniu("daixiaolu.apk");
+//                Log.i("delete", "code = " + code);
+//            }
+//        }).start();
+        Intent i = new Intent(this,MyService.class);
+        ComponentName name =  startService(i);
     }
 //    public void upload(View v) {
 //        //http://apad.etor.vip/houzi
